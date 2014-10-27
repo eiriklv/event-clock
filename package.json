@@ -1,7 +1,6 @@
 {
   "name": "event-clock",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "start": "node app.js"
   },
@@ -18,5 +17,19 @@
   "description": "Create timed event callbacks",
   "main": "event-clock.js",
   "author": "Eirik Vullum <evullum@gmail.com> (http://www.evconsult.no/)",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eiriklv/event-clock.git"
+  },
+  "keywords": [
+    "clock",
+    "event",
+    "schedule",
+    "tick"
+  ],
+  "bugs": {
+    "url": "https://github.com/eiriklv/event-clock/issues"
+  },
+  "homepage": "https://github.com/eiriklv/event-clock"
 }
