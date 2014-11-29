@@ -1,44 +1,52 @@
-var util = require('util');
-var EventEmitter = require('events').EventEmitter;
-var debug = require('debug')('eventclock');
+var debug = require('debug')('event-clock');
 var moment = require('moment');
 
-var validFormats = [
-    (new RegExp(/^([0-9]{2})\:([0-9]{2})$/)),
-    (new RegExp(/^([0-9]{2})\:([0-9]{2})\:([0-9]{2})$/))
-];
-
 function EventClock() {
-    this.count = 0;
-    this.eventList = {};
-    this.timer = setInterval(this.tick.bind(this), 1000);
-    debug('inited EventClock');
+    this.listeners = {};
+
+    this.registerTimeout = function (time) {
+        var self = this,
+            t = moment(time, 'HH:mm:ss'),
+            now = moment();
+
+        while (!t.isAfter(now)) {
+            t.add(1, 'day');
+        }
+
+        setTimeout(function () {
+            self.listeners[time].forEach(function (cb) {
+                cb();
+                debug('executed callback at ' + time);
+            }, self);
+
+            self.registerTimeout(time);
+        }, t.diff(now));
+    };
 }
 
-util.inherits(EventClock, EventEmitter);
+EventClock.prototype.on = function (time, callback) {
+    this.listeners[time] = this.listeners[time] || [];
+    this.listeners[time].push(callback);
 
-EventClock.prototype.at = function(time, callback) {
-    time = this.parseInput(time);
-    if (time) this.on(time, callback);
+    this.registerTimeout(time);
+
+    debug('registered callback at ' + time);
+
+    return this;
 };
 
-EventClock.prototype.parseInput = function(input) {
-    var valid = validFormats
-        .map(function(regex) {
-            return regex.test(input);
-        })
-        .reduce(function(a, b) {
-            return a || b;
-        });
+// alias
+EventClock.prototype.at = EventClock.prototype.on;
 
-    var parsedTime = moment(input, 'HH:mm:ss').format('HH:mm:ss');
-    return valid && parsedTime != 'Invalid date' ? parsedTime : null;
-};
+EventClock.prototype.off = function (time, callback) {
+    var idx = (this.listeners[time] || []).indexOf(callback);
 
-EventClock.prototype.tick = function() {
-    var now = moment().format('HH:mm:ss');
-    debug(now);
-    this.emit(now);
+    if (idx >= 0) {
+        this.listeners[time].splice(idx, 1);
+        debug('unregistered callback at ' + time);
+    }
+
+    return this;
 };
 
 module.exports = new EventClock();

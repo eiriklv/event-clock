@@ -1,10 +1,10 @@
 var debug = require('debug')('clock-app');
-var eventClock = require('./event-clock');
+var eventClock = require('./index');
 
-eventClock.at('19:00:30', function() {
+eventClock.at('23:40:55', function() {
     debug('my first custom event is firing!');
 });
 
-eventClock.at('19:01', function() {
+eventClock.at('23:41', function() {
     debug('my first custom event is firing!');
 });
