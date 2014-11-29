@@ -31,7 +31,7 @@ EventClock.prototype.parseInput = function(input) {
             return a || b;
         });
 
-    var parsedTime = moment(input, 'HH:mm:ss').format('HH:mm:ss')
+    var parsedTime = moment(input, 'HH:mm:ss').format('HH:mm:ss');
     return valid && parsedTime != 'Invalid date' ? parsedTime : null;
 };
 
