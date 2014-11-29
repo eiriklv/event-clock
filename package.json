@@ -15,7 +15,7 @@
     "events": "1.0.2"
   },
   "description": "Create timed event callbacks",
-  "main": "event-clock.js",
+  "main": "index.js",
   "author": "Eirik Vullum <evullum@gmail.com> (http://www.evconsult.no/)",
   "license": "MIT",
   "repository": {
