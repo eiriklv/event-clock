@@ -7,10 +7,7 @@
   "engines": {
     "node": "0.10.x"
   },
-  "dependencies": {
-    "debug": "2.0.0",
-    "moment": "2.8.3"
-  },
+  "dependencies": {},
   "description": "Create timed event callbacks",
   "main": "index.js",
   "author": "Eirik Vullum <evullum@gmail.com> (http://www.evconsult.no/)",
@@ -30,6 +27,7 @@
   },
   "homepage": "https://github.com/eiriklv/event-clock",
   "devDependencies": {
+    "date-frequency": "^0.4.4",
     "mocha": "^2.0.1"
   }
 }

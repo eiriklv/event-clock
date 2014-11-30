@@ -1,11 +1,12 @@
 var EventClock = require('..'),
+  Frequency = require('date-frequency'),
   assert = require('assert');
 
 describe('EventClock', function () {
   describe('#()', function () {
-    it('should return an object with .at method', function () {
+    it('should return an object with .on method', function () {
       assert(typeof EventClock === 'object');
-      assert(typeof EventClock.at === 'function');
+      assert(typeof EventClock.on === 'function');
     });
   });
 
@@ -22,6 +23,14 @@ describe('EventClock', function () {
           done();
         });
       });
+    });
+
+    it('should accept an object with a next method', function () {
+      var str = 'FT0H0M0S', // each day at midnight
+        frequency = new Frequency(str);
+
+      EventClock.on(frequency, function () {});
+      assert(EventClock.listeners[str].length === 1);
     });
   });
 

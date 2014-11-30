@@ -5,20 +5,25 @@ Event Clock
 Create timed event callbacks.
 
 #### Example use:
-```js
-var eventClock = require('event-clock');
+```javascript
+var Clock = require('event-clock');
 
-eventClock.at('19:00:30', function() {
-    // this will fire at 19:00:30 system time
+Clock.on('12:00:00', function() {
+    // executes every day at 12:00:00
 });
+```
 
-eventClock.at('19:01', function() {
-    // this will fire 19:01:00 system time
+Alternatively, a [Frequency](https://github.com/smhg/date-frequency-js) can be passed:
+```javascript
+var Frequency = require('date-frequency');
+
+Clock.on(new Frequency('F1D/WT12H0M0S'), function() {
+    // executes Mondays at 12:00:00
 });
 ```
 
 #### Development:
-```
-npm install
-npm test
+Run tests:
+```bash
+$ npm test
 ```

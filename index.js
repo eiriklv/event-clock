@@ -1,49 +1,48 @@
-var debug = require('debug')('event-clock');
-var moment = require('moment');
+var Frequency = require('./frequency');
 
 function EventClock() {
     this.listeners = {};
 
-    this.registerTimeout = function (time) {
+    this.registerTimeout = function (frequency) {
         var self = this,
-            t = moment(time, 'HH:mm:ss'),
-            now = moment();
-
-        while (!t.isAfter(now)) {
-            t.add(1, 'day');
-        }
+            now = new Date(),
+            next = frequency.next(now);
 
         setTimeout(function () {
-            self.listeners[time].forEach(function (cb) {
+            self.listeners[frequency.toString()].forEach(function (cb) {
                 cb();
-                debug('executed callback at ' + time);
             }, self);
 
-            self.registerTimeout(time);
-        }, t.diff(now));
+            self.registerTimeout(frequency);
+        }, next - now);
     };
 }
 
-EventClock.prototype.on = function (time, callback) {
-    this.listeners[time] = this.listeners[time] || [];
-    this.listeners[time].push(callback);
+EventClock.prototype.on = function (frequency, callback) {
+    if (typeof frequency === 'string') {
+        frequency = new Frequency(frequency);
+    }
 
-    this.registerTimeout(time);
+    if (typeof frequency !== 'object' || !frequency.next) {
+        throw 'Invalid frequency';
+    }
 
-    debug('registered callback at ' + time);
+    var str = frequency.toString();
+
+    this.listeners[str] = this.listeners[str] || [];
+
+    this.listeners[str].push(callback);
+
+    this.registerTimeout(frequency);
 
     return this;
 };
-
-// alias
-EventClock.prototype.at = EventClock.prototype.on;
 
 EventClock.prototype.off = function (time, callback) {
     var idx = (this.listeners[time] || []).indexOf(callback);
 
     if (idx >= 0) {
         this.listeners[time].splice(idx, 1);
-        debug('unregistered callback at ' + time);
     }
 
     return this;
