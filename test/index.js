@@ -30,7 +30,7 @@ describe('EventClock', function () {
         frequency = new Frequency(str);
 
       EventClock.on(frequency, function () {});
-      assert(EventClock.listeners[str].length === 1);
+      assert(EventClock.listeners[str].callbacks.length === 1);
     });
   });
 
@@ -48,7 +48,7 @@ describe('EventClock', function () {
 
       cb = function () {
         EventClock.off(time, cb);
-        assert(EventClock.listeners[time].length === 0);
+        assert(EventClock.listeners[time].callbacks.length === 0);
         done();
       };
 

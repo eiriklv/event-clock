@@ -22,6 +22,12 @@ Clock.on(new Frequency('F1D/WT12H0M0S'), function() {
 });
 ```
 
+Turn off listening:
+```javascript
+Clock.off('12:00:00'); // clear all callbacks
+```
+Note: pass a callback as the second argument to `.off()` to remove only that callback.
+
 #### Development:
 Run tests:
 ```bash
