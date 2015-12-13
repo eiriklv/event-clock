@@ -4,9 +4,6 @@
   "scripts": {
     "test": "mocha"
   },
-  "engines": {
-    "node": "0.10.x"
-  },
   "dependencies": {},
   "description": "Create timed event callbacks",
   "main": "index.js",
@@ -27,7 +24,7 @@
   },
   "homepage": "https://github.com/eiriklv/event-clock",
   "devDependencies": {
-    "date-frequency": "^0.4.4",
-    "mocha": "^2.0.1"
+    "date-frequency": "0.5.1",
+    "mocha": "2.3.4"
   }
 }
