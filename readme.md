@@ -16,3 +16,9 @@ eventClock.at('19:01', function() {
     // this will fire 19:01:00 system time
 });
 ```
+
+#### Development:
+```
+npm install
+npm test
+```

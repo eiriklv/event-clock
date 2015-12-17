@@ -2,7 +2,7 @@
   "name": "event-clock",
   "version": "0.1.0",
   "scripts": {
-    "start": "node app.js"
+    "test": "mocha"
   },
   "engines": {
     "node": "0.10.x"
@@ -15,7 +15,7 @@
     "events": "1.0.2"
   },
   "description": "Create timed event callbacks",
-  "main": "event-clock.js",
+  "main": "index.js",
   "author": "Eirik Vullum <evullum@gmail.com> (http://www.evconsult.no/)",
   "license": "MIT",
   "repository": {
@@ -31,5 +31,8 @@
   "bugs": {
     "url": "https://github.com/eiriklv/event-clock/issues"
   },
-  "homepage": "https://github.com/eiriklv/event-clock"
+  "homepage": "https://github.com/eiriklv/event-clock",
+  "devDependencies": {
+    "mocha": "^2.0.1"
+  }
 }
