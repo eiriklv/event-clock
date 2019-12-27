@@ -24,4 +24,9 @@ describe('EventClock', function () {
       });
     });
   });
+
+  after(function () {
+    // stop clock
+    clearInterval(EventClock.timer);
+  });
 });
