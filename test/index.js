@@ -1,5 +1,5 @@
-var EventClock = require('..'),
-  assert = require('assert');
+var EventClock = require('..');
+var assert = require('assert');
 
 describe('EventClock', function () {
   describe('#()', function () {
