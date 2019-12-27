@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "scripts": {
     "test": "mocha",
-    "lint": "eslint index.js test"
+    "lint": "eslint index.js test",
+    "preversion": "npm run lint && npm test",
+    "postversion": "git push && git push --tags",
+    "prepublishOnly": "npm run lint && npm run test"
   },
   "engines": {
     "node": "0.10.x"
