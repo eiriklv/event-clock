@@ -1,7 +1,10 @@
 var util = require('util');
-var EventEmitter = require('events').EventEmitter;
-var debug = require('debug')('eventclock');
+var events = require('events');
+var createDebug = require('debug');
 var moment = require('moment');
+
+var EventEmitter = events.EventEmitter;
+var debug = createDebug('eventclock');
 
 var validFormats = [
   (new RegExp(/^([0-9]{2}):([0-9]{2})$/)),
