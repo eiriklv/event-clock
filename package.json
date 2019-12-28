@@ -12,7 +12,7 @@
     "node": "0.10.x"
   },
   "dependencies": {
-    "debug": "^3.2.6"
+    "debug": "^2.6.9"
   },
   "description": "Create timed event callbacks",
   "main": "index.js",
