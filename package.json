@@ -13,9 +13,7 @@
   },
   "dependencies": {
     "debug": "^2.6.9",
-    "events": "^1.1.1",
-    "moment": "^2.24.0",
-    "util": "^0.12.1"
+    "moment": "^2.24.0"
   },
   "description": "Create timed event callbacks",
   "main": "index.js",
