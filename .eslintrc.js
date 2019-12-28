@@ -3,8 +3,7 @@ module.exports = {
     browser: true,
     commonjs: true,
     es6: true,
-    node: true,
-    mocha: true
+    node: true
   },
   extends: [
     'standard'
@@ -17,6 +16,6 @@ module.exports = {
     ecmaVersion: 2018
   },
   rules: {
-    semi: 0
+    'semi': ['error', 'always']
   }
 }
