@@ -1,7 +1,6 @@
 var util = require('util');
 var events = require('events');
 var createDebug = require('debug');
-var moment = require('moment');
 
 var EventEmitter = events.EventEmitter;
 var debug = createDebug('eventclock');
@@ -36,13 +35,15 @@ EventClock.prototype.parseInput = function (input) {
       return a || b;
     });
 
-  var parsedTime = moment(input, 'HH:mm:ss').format('HH:mm:ss');
+  if (input.length === 5) {
+    input = input + ':00';
+  }
 
-  return valid && parsedTime !== 'Invalid date' ? parsedTime : null;
+  return valid ? input : null;
 };
 
 EventClock.prototype.tick = function () {
-  var now = moment().format('HH:mm:ss');
+  var now = (new Date()).toTimeString().substr(0, 8);
 
   debug(now);
 
