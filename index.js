@@ -12,8 +12,6 @@ var validFormats = [
 ];
 
 function EventClock () {
-  this.count = 0;
-  this.eventList = {};
   this.timer = setInterval(this.tick.bind(this), 1000);
 
   debug('inited EventClock');

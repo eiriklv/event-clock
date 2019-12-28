@@ -7,6 +7,35 @@ describe('EventClock', function () {
     assert(typeof EventClock.at === 'function');
   });
 
+  describe('tick()', function () {
+    it('should emit current time', function (done) {
+      var native = EventClock.emit;
+
+      // add spy
+      EventClock.emit = function (something) {
+        assert(/^([0-9]{2}):([0-9]{2}):([0-9]{2})$/.test(something));
+
+        native.bind(EventClock)();
+
+        // restore
+        EventClock.emit = native;
+
+        done();
+      };
+
+      EventClock.tick();
+    });
+  });
+
+  describe('parseInput()', function () {
+    it('should parse time strings', function () {
+      assert(EventClock.parseInput('abc') === null);
+      assert(EventClock.parseInput('12') === null);
+      assert(EventClock.parseInput('12:30') === '12:30:00');
+      assert(EventClock.parseInput('12:30:30') === '12:30:30');
+    });
+  });
+
   describe('at()', function () {
     it('should run a function at a specified time', function (done) {
       this.timeout(5000);
