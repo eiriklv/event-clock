@@ -1,4 +1,4 @@
-Event Clock
+Event Clock [![Build Status](https://github.com/eiriklv/event-clock/workflows/CI/badge.svg)](https://github.com/eiriklv/event-clock/actions)
 ===================================
 
 #### Introduction:
