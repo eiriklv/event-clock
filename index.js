@@ -1,4 +1,3 @@
-var util = require('util');
 var events = require('events');
 var createDebug = require('debug');
 
@@ -11,20 +10,11 @@ var validFormats = [
 ];
 
 function EventClock () {
+  this.emitter = new EventEmitter();
   this.timer = setInterval(this.tick.bind(this), 1000);
 
-  debug('inited EventClock');
+  debug('init');
 }
-
-util.inherits(EventClock, EventEmitter);
-
-EventClock.prototype.at = function (time, callback) {
-  time = this.parseInput(time);
-
-  if (time) {
-    this.on(time, callback);
-  }
-};
 
 EventClock.prototype.parseInput = function (input) {
   var valid = validFormats
@@ -45,9 +35,31 @@ EventClock.prototype.parseInput = function (input) {
 EventClock.prototype.tick = function () {
   var now = (new Date()).toTimeString().substr(0, 8);
 
-  debug(now);
+  debug(now, 'tick');
 
-  this.emit(now);
+  this.emitter.emit(now);
+};
+
+EventClock.prototype.on = function (time, callback) {
+  time = this.parseInput(time);
+
+  if (time) {
+    this.emitter.on(time, callback);
+
+    debug(time, 'callback registered');
+  }
+};
+
+EventClock.prototype.at = EventClock.prototype.on;
+
+EventClock.prototype.off = function (time, callback) {
+  time = this.parseInput(time);
+
+  if (time) {
+    this.emitter.off(time, callback);
+
+    debug(time, 'callback removed');
+  }
 };
 
 module.exports = new EventClock();

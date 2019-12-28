@@ -8,13 +8,18 @@ Create timed event callbacks.
 ```javascript
 var EventClock = require('event-clock');
 
-EventClock.at('19:00:30', function () {
+EventClock.on('19:00:30', function () {
   // this will fire at 19:00:30 system time
 });
 
-EventClock.at('19:01', function () {
+var cb = function () {
   // this will fire 19:01:00 system time
-});
+}
+
+EventClock.on('19:01', cb);
+
+// removable with:
+EventClock.off('19:01', cb);
 
 // stop clock
 clearInterval(EventClock.timer);

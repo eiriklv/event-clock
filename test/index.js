@@ -9,16 +9,16 @@ describe('EventClock', function () {
 
   describe('tick()', function () {
     it('should emit current time', function (done) {
-      var native = EventClock.emit;
+      var native = EventClock.emitter.emit;
 
       // add spy
-      EventClock.emit = function (something) {
+      EventClock.emitter.emit = function (something) {
         assert(/^([0-9]{2}):([0-9]{2}):([0-9]{2})$/.test(something));
 
         native.bind(EventClock)();
 
         // restore
-        EventClock.emit = native;
+        EventClock.emitter.emit = native;
 
         done();
       };
@@ -36,7 +36,7 @@ describe('EventClock', function () {
     });
   });
 
-  describe('at()', function () {
+  describe('on()', function () {
     it('should run a function at a specified time', function (done) {
       this.timeout(5000);
 
@@ -47,10 +47,18 @@ describe('EventClock', function () {
       var time = now.toTimeString().substr(0, 8);
 
       assert.doesNotThrow(function () {
-        EventClock.at(time, function () {
-          done();
-        });
+        EventClock.on(time, done);
       });
+    });
+  });
+
+  describe('off()', function () {
+    it('should remove a previously registered function', function () {
+      var cb = function () { };
+      var time = '12:00:00';
+
+      EventClock.on(time, cb);
+      EventClock.off(time, cb);
     });
   });
 
