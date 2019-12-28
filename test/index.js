@@ -1,12 +1,10 @@
-var EventClock = require('..');
 var assert = require('assert');
+var EventClock = require('..'); // start clock
 
 describe('EventClock', function () {
-  describe('#()', function () {
-    it('should return an object with .at method', function () {
-      assert(typeof EventClock === 'object');
-      assert(typeof EventClock.at === 'function');
-    });
+  it('should be a singleton', function () {
+    assert(typeof EventClock === 'object');
+    assert(typeof EventClock.at === 'function');
   });
 
   describe('at()', function () {
@@ -17,8 +15,10 @@ describe('EventClock', function () {
 
       now.setSeconds(now.getSeconds() + 2);
 
+      var time = now.toTimeString().substr(0, 8);
+
       assert.doesNotThrow(function () {
-        EventClock.at(now.toTimeString().substr(0, 8), function () {
+        EventClock.at(time, function () {
           done();
         });
       });
