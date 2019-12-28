@@ -56,7 +56,7 @@ EventClock.prototype.off = function (time, callback) {
   time = this.parseInput(time);
 
   if (time) {
-    this.emitter.off(time, callback);
+    this.emitter.removeListener(time, callback);
 
     debug(time, 'callback removed');
   }
