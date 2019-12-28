@@ -7,11 +7,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [ '0.10' ]
-    name: Node ${{ matrix.node }} sample
+        node: [ '0.10', 'lts/*', 'node' ]
+    name: Test on node ${{ matrix.node }}
     steps:
-      - uses: actions/checkout@v1
-      - name: Setup node
+      - name: Check out repo
+        uses: actions/checkout@v1
+      - name: Set up node ${{ matrix.node }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
