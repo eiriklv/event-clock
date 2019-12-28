@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [ '0.10', 'lts/*', 'node' ]
+        node: [ '0.10', 'lts', 'latest' ]
     name: Test on node ${{ matrix.node }}
     steps:
       - name: Check out repo
