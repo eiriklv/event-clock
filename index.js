@@ -1,5 +1,5 @@
 var events = require('events');
-var createDebug = require('debug');
+var createDebug = require('debug/dist/debug');
 
 var EventEmitter = events.EventEmitter;
 var debug = createDebug('eventclock');
