@@ -4,7 +4,7 @@ var EventClock = require('..'); // start clock
 describe('EventClock', function () {
   it('should be a singleton', function () {
     assert(typeof EventClock === 'object');
-    assert(typeof EventClock.at === 'function');
+    assert(typeof EventClock.stop === 'function');
   });
 
   describe('tick()', function () {
@@ -57,13 +57,15 @@ describe('EventClock', function () {
       var cb = function () { };
       var time = '12:00:00';
 
-      EventClock.on(time, cb);
-      EventClock.off(time, cb);
+      assert.doesNotThrow(function () {
+        EventClock.on(time, cb);
+        EventClock.off(time, cb);
+      });
     });
   });
 
   after(function () {
-    // stop clock
-    clearInterval(EventClock.timer);
+    // stop clock so test runner exits
+    EventClock.stop();
   });
 });

@@ -22,7 +22,7 @@ EventClock.on('19:01', cb);
 EventClock.off('19:01', cb);
 
 // stop clock
-clearInterval(EventClock.timer);
+EventClock.stop();
 ```
 
 #### Development:

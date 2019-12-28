@@ -11,10 +11,29 @@ var validFormats = [
 
 function EventClock () {
   this.emitter = new EventEmitter();
+
+  this.start();
+}
+
+EventClock.prototype.start = function () {
+  if (this.timer) {
+    throw new Error('Clock already started');
+  }
+
   this.timer = setInterval(this.tick.bind(this), 1000);
 
-  debug('init');
-}
+  debug('start');
+};
+
+EventClock.prototype.stop = function () {
+  if (this.timer) {
+    clearInterval(this.timer);
+
+    delete this.timer;
+
+    debug('stop');
+  }
+};
 
 EventClock.prototype.parseInput = function (input) {
   var valid = validFormats
